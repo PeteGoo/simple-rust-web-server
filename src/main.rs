@@ -1,5 +1,6 @@
 use std::convert::Infallible;
 use std::net::SocketAddr;
+use std::str::FromStr;
 use hyper::{Body, Request, Response, Server};
 use hyper::service::{make_service_fn, service_fn};
 
@@ -11,7 +12,7 @@ async fn handle(mut _req: Request<Body>) -> Result<Response<Body>, Infallible> {
 #[tokio::main]
 async fn main() {
     // Construct an address to listen on
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
+    let addr = SocketAddr::from_str("[::]:8000").unwrap();
 
     // Make service to handle each connection
     let make_service = make_service_fn(|_conn| async {
